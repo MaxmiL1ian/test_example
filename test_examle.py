@@ -1,4 +1,4 @@
-import time
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -13,18 +13,19 @@ driver.get("https://example.com")
 try:
     assert "Example" in driver.title
 except AssertionError:
-    print("Ошибка: заголовок не содержит 'Example'")
+    sys.exit("Ошибка: заголовок не содержит 'Example'")
 
 # Поиск элемента "More Information"
 more_information = driver.find_element(By.CSS_SELECTOR, "a")
 more_information.click()
 
-time.sleep(2)
 # Проверка перенаправления
 try:
     assert "https://www.iana.org/domains/example" in driver.current_url
 except AssertionError:
-    print("Открыта неверная страница")
+    sys.exit("Ошибка: открыта неверная страница")
+
+print("Тест выполнен успешно")
 
 # Закрытие браузера
 driver.quit()
